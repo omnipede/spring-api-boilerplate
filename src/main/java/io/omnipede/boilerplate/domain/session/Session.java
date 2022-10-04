@@ -17,8 +17,4 @@ import java.io.Serializable;
 public class Session implements Serializable {
 
     private User user;
-
-    public void clear() {
-        this.user = null;
-    }
 }
