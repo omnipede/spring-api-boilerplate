@@ -1,4 +1,4 @@
-package io.omnipede.boilerplate.controller.auth;
+package io.omnipede.boilerplate.controller.session;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-class AuthReqDTO {
+class SessionReqDTO {
 
     @NotNull
     @NotBlank

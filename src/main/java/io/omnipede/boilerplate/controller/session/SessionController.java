@@ -1,4 +1,4 @@
-package io.omnipede.boilerplate.controller.auth;
+package io.omnipede.boilerplate.controller.session;
 
 import io.omnipede.boilerplate.domain.session.SessionUseCase;
 import lombok.RequiredArgsConstructor;
@@ -8,19 +8,19 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/v1/session")
 @RequiredArgsConstructor
-class AuthController {
+class SessionController {
 
     private final SessionUseCase sessionUseCase;
 
-    @PostMapping("/login")
-    public void login(@Valid @RequestBody AuthReqDTO dto) {
+    @PostMapping
+    public void post(@Valid @RequestBody SessionReqDTO dto) {
         sessionUseCase.login(dto.getEmail(), dto.getPassword());
     }
 
-    @DeleteMapping("/logout")
-    public void logout(HttpSession session) {
+    @DeleteMapping
+    public void delete(HttpSession session) {
         session.invalidate();
     }
 }
