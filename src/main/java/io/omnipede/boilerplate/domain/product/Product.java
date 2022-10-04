@@ -1,6 +1,5 @@
 package io.omnipede.boilerplate.domain.product;
 
-import jdk.nashorn.internal.objects.annotations.Property;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
