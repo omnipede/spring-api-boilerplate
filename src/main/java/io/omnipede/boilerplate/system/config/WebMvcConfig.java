@@ -1,8 +1,6 @@
 package io.omnipede.boilerplate.system.config;
 
-import io.omnipede.boilerplate.domain.auth.AuthUseCase;
 import io.omnipede.boilerplate.domain.session.SessionUseCase;
-import io.omnipede.boilerplate.system.resolver.JwtAuthResolver;
 import io.omnipede.boilerplate.system.resolver.LoginUserResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -15,17 +13,14 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 class WebMvcConfig implements WebMvcConfigurer {
-
-    private final AuthUseCase authUseCase;
-    private final SessionUseCase sessionUseCase;
+    private final LoginUserResolver loginUserResolver;
 
     /**
      * controller 에서 쓰는 argument resolver 등록
      */
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new JwtAuthResolver(authUseCase));
-        resolvers.add(new LoginUserResolver(sessionUseCase));
+        resolvers.add(loginUserResolver);
     }
 
     /**
