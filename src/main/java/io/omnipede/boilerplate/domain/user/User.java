@@ -2,6 +2,7 @@ package io.omnipede.boilerplate.domain.user;
 
 import io.omnipede.boilerplate.domain.order.Order;
 import io.omnipede.boilerplate.domain.product.Product;
+import io.omnipede.boilerplate.system.utils.AESCryptoConverter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class User implements Serializable {
     private String email;
 
     @Column(name = "password", nullable = false)
+    @Convert(converter = AESCryptoConverter.class)
     private String password;
 
     @Column(name = "created_at", nullable = false)

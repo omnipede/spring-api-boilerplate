@@ -19,6 +19,9 @@ public class UserUseCase {
                     throw new SystemException(ErrorCode.CONFLICT, "User " + user.getEmail() + " already exists.");
                 });
 
+        // 주의. 현재 password encryption 은 column level 에서 진행하고 있다.
+        // User class 참조.
+
         // 신규 유저 등록
         userRepository.save(user);
     }
