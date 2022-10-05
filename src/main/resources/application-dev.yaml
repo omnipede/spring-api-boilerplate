@@ -1,0 +1,32 @@
+spring:
+  session:
+    timeout: 24h
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION
+  # Spring database configurations
+  datasource:
+    url: jdbc:h2:~/mydb;MODE=mysql;AUTO_SERVER=TRUE
+    username: username
+    password: password
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+
+server:
+  port: 8080
+
+secret:
+  # AES key for enc/dec
+  aes-key: "AES_KEY"

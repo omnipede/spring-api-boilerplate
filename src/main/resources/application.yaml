@@ -1,32 +1,3 @@
 spring:
-  session:
-    timeout: 24h
-    store-type: jdbc
-    jdbc:
-      initialize-schema: always
-      table-name: SPRING_SESSION
-  # Spring database configurations
-  datasource:
-    url: jdbc:h2:~/mydb;MODE=mysql;AUTO_SERVER=TRUE
-    username: username
-    password: password
-    driver-class-name: org.h2.Driver
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-    generate-ddl: true
-  h2:
-    console:
-      enabled: true
-
-server:
-  port: 8080
-
-jwt:
-  secret-key: THIS_IS_SECRET_KEY
-  duration: 86400000
+  profiles:
+    active: dev
