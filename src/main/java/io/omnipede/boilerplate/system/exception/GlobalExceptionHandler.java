@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -53,12 +55,13 @@ class GlobalExceptionHandler {
     }
 
     /**
-     * API end point 가 존재하지 않는 경우
+     * 주로 @RequestParam 이 누락될 경우 발생
+     * 필요한 query 파라미터 등이 누락될 경우 발생
      */
-    @ExceptionHandler(NoHandlerFoundException.class)
-    protected ResponseEntity<RestError> handleNoHandlerFoundException(final NoHandlerFoundException e) {
-        ErrorCode errorCode = ErrorCode.NOT_FOUND;
-        String message = "Maybe you requested to wrong uri";
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    protected ResponseEntity<RestError> handleMissingServletRequestParameterException (final MissingServletRequestParameterException e) {
+        ErrorCode errorCode = ErrorCode.BAD_REQUEST;
+        String message = "Query error: " + e.getParameterName() + ": " + e.getMessage();
         return createResponseEntityAndLogError(errorCode, message, e);
     }
 
@@ -72,6 +75,26 @@ class GlobalExceptionHandler {
     protected ResponseEntity<RestError> handleHttpMessageNotReadableException (final HttpMessageNotReadableException e) {
         ErrorCode errorCode = ErrorCode.BAD_REQUEST;
         String message = "Can't read http message ... Please check your request format.";
+        return createResponseEntityAndLogError(errorCode, message, e);
+    }
+
+    /**
+     * API end point 가 존재하지 않는 경우
+     */
+    @ExceptionHandler(NoHandlerFoundException.class)
+    protected ResponseEntity<RestError> handleNoHandlerFoundException(final NoHandlerFoundException e) {
+        ErrorCode errorCode = ErrorCode.NOT_FOUND;
+        String message = "Maybe you requested to wrong uri";
+        return createResponseEntityAndLogError(errorCode, message, e);
+    }
+
+    /**
+     * 지원하지 않는 http method 요청시 발생
+     */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    protected ResponseEntity<RestError> handleHttpRequestMethodNotSupportedException(final HttpRequestMethodNotSupportedException e) {
+        ErrorCode errorCode = ErrorCode.NOT_FOUND;
+        String message = "Maybe you're requesting not supported http method";
         return createResponseEntityAndLogError(errorCode, message, e);
     }
 
