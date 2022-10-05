@@ -12,8 +12,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.util.Date;
 
-@Setter
-@NoArgsConstructor
 @Builder
 @AllArgsConstructor
 public class ProductDTO {
@@ -31,9 +29,6 @@ public class ProductDTO {
     private Long price;
 
     static public ProductDTO fromEntity(Product entity) {
-        if (entity == null)
-            return null;
-
         return ProductDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())

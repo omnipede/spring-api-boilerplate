@@ -1,5 +1,6 @@
 package io.omnipede.boilerplate.controller.order;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.omnipede.boilerplate.controller.product.ProductDTO;
 import io.omnipede.boilerplate.domain.order.Order;
@@ -19,12 +20,10 @@ class OrderDTO {
     private ProductDTO productDTO;
 
     @JsonProperty("ordered_at")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date orderedAt;
 
     public static OrderDTO fromEntity(Order entity) {
-        if (entity == null)
-            return null;
-
         Product product = entity.getProduct();
         ProductDTO productDTO = ProductDTO.fromEntity(product);
 

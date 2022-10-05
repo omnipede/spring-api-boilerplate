@@ -20,10 +20,4 @@ public class SystemException extends RuntimeException {
         super(cause);
         this.errorCode = errorCode;
     }
-
-    public SystemException(ErrorCode errorCode, String message, Throwable cause) {
-        super(message, cause);
-        this.errorCode = errorCode;
-    }
-
 }

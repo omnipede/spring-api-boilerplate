@@ -7,30 +7,25 @@ import io.omnipede.boilerplate.system.exception.SystemException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-
 @Service
 @RequiredArgsConstructor
 public class SessionUseCase {
 
     private final UserRepository userRepository;
-
-    @Resource
-    private Session session;
+    private final Session session;
 
     public void login(String email, String password) {
+
+        // Find user info by email
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new SystemException(ErrorCode.UNAUTHORIZED, "Not found email."));
 
+        // Check password correctness
         if (!user.login(password))
             throw new SystemException(ErrorCode.UNAUTHORIZED, "Wrong password.");
 
-        // Store user data on session storage.
+        // Store authenticated user data on session storage.
         session.setUser(user);
-    }
-
-    public void logout() {
-        session.clear();
     }
 
     public User auth() {
