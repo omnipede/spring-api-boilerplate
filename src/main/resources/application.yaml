@@ -1,3 +1,15 @@
 spring:
   profiles:
     active: prod
+  # 존재하지 않는 endpoint 요청 시 에러를 발생시키기 위한 설정
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+
+server:
+  error:
+    # 존재하지 않는 endpoint 요청 시 whitelabel page 를 반환시키지 않기 위한 설정
+    whitelabel:
+      enabled: false
