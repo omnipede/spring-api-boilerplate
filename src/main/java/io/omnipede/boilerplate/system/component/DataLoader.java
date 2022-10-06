@@ -47,5 +47,7 @@ class DataLoader implements ApplicationRunner {
         productRepository.save(monitor);
         productRepository.save(hdd);
         productRepository.save(ssd);
+
+        log.info("Load completed.");
     }
 }
