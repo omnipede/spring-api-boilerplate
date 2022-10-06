@@ -8,11 +8,16 @@ import io.omnipede.boilerplate.system.resolver.LoginUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
+@Validated
 public class ProductController {
 
     private final ProductUseCase productUseCase;
@@ -20,8 +25,8 @@ public class ProductController {
 
     @GetMapping
     public ProductListDTO getAll(
-        @RequestParam(value = "page", defaultValue = "0") int page,
-        @RequestParam(value = "size", defaultValue = "100") int size
+        @RequestParam(value = "page", defaultValue = "0") @Min(0) int page,
+        @RequestParam(value = "size", defaultValue = "100") @Min(1) int size
     ) {
         Page<Product> productList = productUseCase.getProductList(PageRequest.of(page, size));
         return new ProductListDTO(productList);
