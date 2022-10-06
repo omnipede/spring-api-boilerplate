@@ -6,8 +6,8 @@
 **URL**: ```/api/v1/orders```  
 **Query**: 
 
-* page: 페이지 번호 (0부터 시작)
-* size: 페이지 크기
+* page: 페이지 번호 (0부터 시작), optional.
+* size: 페이지 크기, optional.
 
 **Body**: (empty)  
 **Cookies**:

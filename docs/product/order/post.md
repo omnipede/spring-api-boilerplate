@@ -16,7 +16,7 @@
 
 ## Success response
 
-**Code**: 200
+**Code**: 200  
 **Body**: (empty)
 
 ## Error response
