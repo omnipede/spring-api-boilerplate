@@ -55,18 +55,19 @@ class OrderControllerITest {
         MockHttpServletResponse loginResponse = mvcResult.getResponse();
 
         // When
-        MvcResult result = mockMvc.perform(get(GET_ALL_ORDERS_ENDPOINT)
+        mockMvc.perform(get(GET_ALL_ORDERS_ENDPOINT)
             .contentType(MediaType.APPLICATION_JSON)
             .cookie(loginResponse.getCookies()))
         // Then
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.total").value(2))
         .andExpect(jsonPath("$.data").isArray())
-        .andReturn();
-
-        String contentAsString = result.getResponse().getContentAsString();
-        assertThat(contentAsString)
-            .isEqualTo("{\"total\":2,\"data\":[{\"product\":{\"id\":1,\"name\":\"Monitor\",\"price\":300000},\"ordered_at\":\"2022-10-03 07:23:34\"},{\"product\":{\"id\":2,\"name\":\"HDD\",\"price\":50000},\"ordered_at\":\"2022-10-03 07:23:48\"}]}");
+                .andExpect(jsonPath("$.data[0].product.id").value(1))
+                .andExpect(jsonPath("$.data[0].product.name").value("Monitor"))
+                .andExpect(jsonPath("$.data[0].product.price").value(300000))
+                .andExpect(jsonPath("$.data[1].product.id").value(2))
+                .andExpect(jsonPath("$.data[1].product.name").value("HDD"))
+                .andExpect(jsonPath("$.data[1].product.price").value(50000));
     }
 
     @Test
