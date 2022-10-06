@@ -7,7 +7,7 @@ spring:
       table-name: SPRING_SESSION
   # Spring database configurations
   datasource:
-    url: jdbc:h2:~/mydb;MODE=mysql;AUTO_SERVER=TRUE
+    url: jdbc:h2:./db/mydb;MODE=mysql;AUTO_SERVER=TRUE
     username: username
     password: password
     driver-class-name: org.h2.Driver
@@ -26,6 +26,11 @@ spring:
 
 server:
   port: 8080
+  undertow:
+    accesslog:
+      enabled: true
+      pattern: "%h %l %u %t \"%r\" %s %b \"%{i,Referer}\" \"%{i,User-Agent}\" %D"
+      rotate: true
 
 secret:
   # AES key for enc/dec
