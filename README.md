@@ -66,9 +66,13 @@ gradle clean bootRun -x test
 
 패키지는 크게 ```controller```, ```domain```, ```system``` 으로 나누어져 있습니다.
 * `controller`: REST API 등 외부 통신을 담당하는 부분
-* `domain`: 도메인 로직과 프로그램 use case 를 구현한 패키지
+* `domain`: 도메인 로직을 구현한 패키지
 * `system`: 도메인 로직과 관련이 적은 spring boot framework 의 config, resolver, component 등을 포함
 
+패키지 간의 의존관계는 `controller` > `domain (UseCase)` > `domain (Entity)` 순으로 이어지도록 했고, `system` 클래스는 최대한 다른 클래스가 참조하지 않도록 했습니다.
+
+`domain` 패키지는 use case 클래스와 domain entity 클래스로 이루어져 있습니다. 여기서 use case 는 말 그대로 사용자 측면에서 바라본 프로그램의 기능을 의미합니다. 
+따라서 use case 클래스는 다른 use case 클래스를 참조하거나 의존하지 않도록 규칙을 정했습니다.  
 
 ### 설정
 
