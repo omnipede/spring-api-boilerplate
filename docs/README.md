@@ -2,7 +2,7 @@
 
 ## 회원 관련
 
-* [회원 관련](./user/post.md): ```POST /api/v1/users```
+* [회원 가입](./user/post.md): ```POST /api/v1/users```
 
 ## 세션 관련
 
