@@ -6,14 +6,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 /**
  * 서버 실행 시 데모 데이터를 로딩하기 위한 컴포넌트
+ * 주의) 테스트 환경에서는 로딩하지 않는다.
  */
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Profile("!test")
 class DataLoader implements ApplicationRunner {
 
     private final ProductRepository productRepository;
